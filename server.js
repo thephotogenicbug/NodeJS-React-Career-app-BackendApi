@@ -28,6 +28,22 @@ app.post("/signup", (req, res) =>{
   })
 })
 
+app.post("/login", (req, res)=>{
+   const email   = req.body.email;
+   const password = req.body.password;
+   const sql = "select * from signup where email='"+email+"', and password='"+password+"'";
+   mydatabase.query(sql ,(error, rows, fields)=>{
+       if(error) throw error
+       if(rows.length > 0){
+           res.send(rows);
+           res.send();
+       } else{
+           res.send({"id":""});
+           res.end();
+       }
+   })
+})
+
 
 app.listen(4000, function(){
     console.log("Server is running on port 4000");
